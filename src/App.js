@@ -25,7 +25,8 @@ class App extends React.Component {
     this.state = {
       todoList: todoData,
       task: '',
-      completed: false
+      completed: false,
+      id: ''
     };
   }
 
@@ -38,12 +39,15 @@ class App extends React.Component {
     this.setState({
       todoList: [
         ...this.state.todoList, 
-        {task: this.state.task}
+        {task: this.state.task, id: Date.now()}
       ],
       task: ''
     });
-    console.log(this.state.task)
   };
+
+  clearCompleted = e => {
+    e.preventDefault();
+  }
 
   render() {
     return (

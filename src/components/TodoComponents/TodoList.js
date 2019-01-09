@@ -3,11 +3,11 @@
 import React from 'react';
 import Todo from './Todo.js';
 
-function TodoList(porps) {
+function TodoList(props) {
     return (
         <div>
-            {porps.todoDataList.map((todo, index) => {
-                return <Todo todo={todo} key={index}/>
+            {props.todoDataList.map((todo) => {
+                return <Todo todo={todo} key={todo.id}/>
             })}
         </div>
     );
