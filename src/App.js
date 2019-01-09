@@ -29,6 +29,19 @@ class App extends React.Component {
     };
   }
 
+  handleInput = e => {
+    this.setState({ [e.target.name]: e.target.value});
+    
+  };
+
+  addNewTodo = e => {
+    e.preventDefualt();
+    // this.setState({
+    //   todoList: [...this.state.todoList, {task: this.state.task}], task: ''
+    // });
+    console.log("this works")
+  };
+
   render() {
     return (
       <div className='App'>
@@ -36,6 +49,7 @@ class App extends React.Component {
         <TodoForm 
           addNewTodo={this.addNewTodo} 
           todo={this.state.task}
+          handleInput = {this.handleInput}
         />
       </div>
     );

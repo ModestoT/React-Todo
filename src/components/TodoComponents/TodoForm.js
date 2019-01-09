@@ -8,8 +8,9 @@ function TodoForm(props) {
                 type="text" 
                 name="task" 
                 placeholder="...todo"
+                onChange={props.handleInput}
             />
-            <button>Add Todo</button>
+            <button >Add Todo</button>
             <button>Clear Completed</button>
         </form>
     );
