@@ -30,16 +30,19 @@ class App extends React.Component {
   }
 
   handleInput = e => {
-    this.setState({ [e.target.name]: e.target.value});
-    
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   addNewTodo = e => {
-    e.preventDefualt();
-    // this.setState({
-    //   todoList: [...this.state.todoList, {task: this.state.task}], task: ''
-    // });
-    console.log("this works")
+    e.preventDefault();
+    this.setState({
+      todoList: [
+        ...this.state.todoList, 
+        {task: this.state.task}
+      ],
+      task: ''
+    });
+    console.log(this.state.task)
   };
 
   render() {
@@ -48,7 +51,7 @@ class App extends React.Component {
         <TodoList todoDataList={this.state.todoList}/>
         <TodoForm 
           addNewTodo={this.addNewTodo} 
-          todo={this.state.task}
+          task={this.state.task}
           handleInput = {this.handleInput}
         />
       </div>
