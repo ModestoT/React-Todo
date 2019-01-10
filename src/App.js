@@ -20,10 +20,9 @@ class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      todoList: [],
+      todoList: todoData,
       task: '',
       completed: '',
-      status: '',
       id: ''
     };
   }
@@ -56,6 +55,14 @@ class App extends React.Component {
 
   clearCompleted = e => {
     e.preventDefault();
+    this.setState({todoList: this.state.todoList.filter(todo => {
+        if(todo.completed === false){
+          return todo;
+        } else {
+          return null;
+        }
+      })
+    })
   };
 
   render() {
@@ -66,10 +73,8 @@ class App extends React.Component {
           addNewTodo={this.addNewTodo} 
           task={this.state.task}
           handleInput = {this.handleInput}
+          clearCompleted = {this.clearCompleted}
         />
-         <button onClick={this.toggleComplete}>
-            {this.state.completed ? 'ON' : 'OFF'}
-        </button>
       </div>
     );
   }
