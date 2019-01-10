@@ -21,6 +21,8 @@
     -ms-transform: rotate(-6deg);
     -webkit-transform: rotate(-6deg);
     transition: transform .15s linear;
+    -ms-transition: -ms-transform .15s linear;
+    -webkit-transition: -webkit-transform .15s linear;
 }
 
 .todo:nth-child(even){
@@ -28,6 +30,7 @@
     -ms-transform: rotate(4deg);
     -webkit-transform: rotate(4deg);
     top: 5px;
+    background: #cfc;
 }
 
 .todo:nth-child(3n){
@@ -35,6 +38,7 @@
     -ms-transform: rotate(-3deg);
     -webkit-transform: rotate(-3deg);
     top: -5px; 
+    background:#ccf;
 }
 
 .todo:nth-child(5n){
@@ -48,7 +52,6 @@
     box-shadow: 10px 10px 7px rgba(0,0,0,.7);
     transform: scale(1.25);
     z-index: 3;
-    position: relative;
 }
 
 .todo.completed {
