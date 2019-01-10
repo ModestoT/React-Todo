@@ -4,24 +4,24 @@ import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 import './App.css';
 
-const todoData= [
-  {
-    task: 'Organize Garage',
-    id: 1528817077286,
-    completed: false
-  },
-  {
-    task: 'Bake Cookies',
-    id: 1528817084358,
-    completed: false
-  }
-];
+// const todoData= [
+//   {
+//     task: 'Organize Garage',
+//     id: 1528817077286,
+//     completed: false
+//   },
+//   {
+//     task: 'Bake Cookies',
+//     id: 1528817084358,
+//     completed: false
+//   }
+// ];
 
 class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      todoList: todoData,
+      todoList: [],
       task: '',
       completed: '',
       id: ''
@@ -30,6 +30,29 @@ class App extends React.Component {
 
   handleInput = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleSearch = e => {
+    let currentList = [];
+    let newList = [];
+    const original = this.state.todoList;
+    if (e.target.value !== "") {
+      currentList = this.state.todoList;
+
+            // Use .filter() to determine which items should be displayed
+            // based on the search terms
+      newList = currentList.filter(todo => {
+        const lc = todo.task.toLowerCase();
+        const filter = e.target.value.toLowerCase();
+        return lc.includes(filter);
+      });
+      } else {
+         newList = original;
+      }
+        // Set the filtered state based on what our rules added to newList
+      this.setState({
+         todoList:newList 
+      });
   };
 
   addNewTodo = e => {
@@ -43,7 +66,7 @@ class App extends React.Component {
     });
   };
 
-  toggleComplete = (id) => {
+  toggleComplete = id => {
     this.setState({todoList: this.state.todoList.map(todo => {
         if(todo.id === id) {
           return {...todo, completed: !todo.completed };
@@ -64,7 +87,6 @@ class App extends React.Component {
         }
       })
     });
-    
   };
 
   hydrateStateWithLocalStorage() {
@@ -121,6 +143,7 @@ componentWillUnmount() {
           addNewTodo={this.addNewTodo} 
           task={this.state.task}
           handleInput = {this.handleInput}
+          handleSearch = {this.handleSearch}
           clearCompleted = {this.clearCompleted}
         />
       </div>

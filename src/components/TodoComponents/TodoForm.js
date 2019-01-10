@@ -13,6 +13,12 @@ function TodoForm(props) {
             />
             <button onClick={props.addNewTodo}>Add Todo</button>
             <button onClick={props.clearCompleted}>Clear Completed</button>
+            <input 
+                // value={props.task}
+                type="text" 
+                name="task" 
+                placeholder="Search for Todo"
+                onChange={props.handleSearch}/>
         </form>
     );
 }
