@@ -3,18 +3,18 @@ import React from 'react';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
-const todoData= [
-  {
-    task: 'Organize Garage',
-    id: 1528817077286,
-    completed: false
-  },
-  {
-    task: 'Bake Cookies',
-    id: 1528817084358,
-    completed: false
-  }
-];
+// const todoData= [
+//   {
+//     task: 'Organize Garage',
+//     id: 1528817077286,
+//     completed: false
+//   },
+//   {
+//     task: 'Bake Cookies',
+//     id: 1528817084358,
+//     completed: false
+//   }
+// ];
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -23,9 +23,10 @@ class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      todoList: todoData,
+      todoList: [],
       task: '',
-      completed: false,
+      completed: '',
+      status: '',
       id: ''
     };
   }
@@ -39,25 +40,39 @@ class App extends React.Component {
     this.setState({
       todoList: [
         ...this.state.todoList, 
-        {task: this.state.task, id: Date.now()}
+        {task: this.state.task, id: Date.now(), completed: false }
       ],
       task: ''
     });
   };
 
+  toggleComplete = (e) => {
+    const state = this.state;
+    // this.setState(prevState => ({
+    //   completed: !prevState.completed
+    // }));
+    state.completed = true;
+    this.setState({completed: state});
+    console.log('this is: ', this.state.completed);
+  };
+
   clearCompleted = e => {
     e.preventDefault();
-  }
+  };
 
   render() {
+     console.log(this.state.todoList)
     return (
       <div className='App'>
-        <TodoList todoDataList={this.state.todoList}/>
+        <TodoList todoDataList={this.state.todoList} toggleComplete={this.toggleComplete} completed={this.state.completed}/>
         <TodoForm 
           addNewTodo={this.addNewTodo} 
           task={this.state.task}
           handleInput = {this.handleInput}
         />
+         <button onClick={this.toggleComplete}>
+            {this.state.completed ? 'ON' : 'OFF'}
+        </button>
       </div>
     );
   }
