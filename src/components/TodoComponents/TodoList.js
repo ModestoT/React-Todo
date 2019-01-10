@@ -4,7 +4,7 @@ import './Todo.css';
 
 function TodoList(props) {
     return (
-        <div>
+        <div className = "todo-List">
             {props.todoDataList.map((todo) => {
                 return <Todo todo={todo} key={todo.id} toggleComplete={props.toggleComplete}/>
             })}
