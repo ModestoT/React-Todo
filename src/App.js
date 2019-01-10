@@ -46,13 +46,18 @@ class App extends React.Component {
     });
   };
 
-  toggleComplete = (e) => {
-    const state = this.state;
+  toggleComplete = (id) => {
     // this.setState(prevState => ({
     //   completed: !prevState.completed
     // }));
-    state.completed = true;
-    this.setState({completed: state});
+    this.setState({todoList: this.state.todoList.map(todo => {
+        if(todo.id === id) {
+          return {...todo, completed: todo.completed === false ? true : false};
+        } else {
+          return todo;
+        }
+      }) 
+    })
     console.log('this is: ', this.state.completed);
   };
 
@@ -64,7 +69,7 @@ class App extends React.Component {
      console.log(this.state.todoList)
     return (
       <div className='App'>
-        <TodoList todoDataList={this.state.todoList} toggleComplete={this.toggleComplete} completed={this.state.completed}/>
+        <TodoList todoDataList={this.state.todoList} toggleComplete={this.toggleComplete}/>
         <TodoForm 
           addNewTodo={this.addNewTodo} 
           task={this.state.task}
