@@ -1,0 +1,11 @@
+.todo {
+    cursor: pointer;
+}
+
+.todo.false {
+    text-decoration: none;   
+}
+
+.todo.true {
+    text-decoration: line-through;
+}
