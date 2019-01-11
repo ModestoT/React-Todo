@@ -28,22 +28,27 @@ class App extends React.Component {
       id: ''
     };
   }
-
+  //method used to handle the input from the user from the input field used to create a new todo
+  //this method takes in what the user types and makes it the new todo's task
   handleInput = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
+  //method used to handle the search input from the user from the search input field
+  //this method takes in what the user types and uses it to compare it against the already created todo's 
+  //and calls filterList method to filter the todoList to display the searched input 
   handleSearch = e => {
     this.setState({filterText: e.target.value,
     }, () => {
       this.filterList();
     });
   };
-
+  //method used to filter the todoList based on what was typed in the filter input field
+  //this method grabs all the div's with the class 'todo' attached to it and places them into an array
+  //it then is looped through and applies a new class of hide if the filterText is is the same as the todo's text or removes the hide class if it's not
   filterList = e => {
     const currentList = document.querySelectorAll('.todo');
     const newList = Array.from(currentList);
-    // const original = this.state.todoList;
+
       newList.forEach(todo => {
         if(todo.textContent.indexOf(this.state.filterText) === -1){
           todo.classList.add('hide');
@@ -52,7 +57,10 @@ class App extends React.Component {
         }
       })
   };
-
+  //method used to create a new todo when the create todo button is clicked on
+  //this method sets the state of the todoList to a new array that has the original data along with the
+  //newly entered data from the input field for creating a todo, it also assigns an id of Date.now() to unsure it is unique 
+  //along with setting is completed state to false 
   addNewTodo = e => {
     e.preventDefault();
     this.setState({
@@ -60,10 +68,11 @@ class App extends React.Component {
         ...this.state.todoList, 
         {task: this.state.task, id: Date.now(), completed: false }
       ],
-      task: ''
+      task: '' //resets the input text field to be blank
     });
   };
-
+  //method used to toggle the completed state to either be true or false by looping through the todoList
+  //and comparing the id of the clicked on task to the id's of the task inside of the todoList array
   toggleComplete = id => {
     this.setState({todoList: this.state.todoList.map(todo => {
         if(todo.id === id) {
@@ -74,7 +83,9 @@ class App extends React.Component {
       }) 
     });
   };
-
+  //method used to remove the completed todo's by running .filter() on the todoList array and checking
+  //if the todo's completed state is false or not if its false it will show the none completed todo's 
+  //other wise it will do nothing
   clearCompleted = e => {
     e.preventDefault();
     this.setState({todoList: this.state.todoList.filter(todo => {
@@ -116,9 +127,6 @@ class App extends React.Component {
   componentDidMount() {
     this.hydrateStateWithLocalStorage();
     
-    // this.setState({
-    //   filtered: this.todoList
-    // });
     // add event listener to save state to localStorage
     // when user leaves/refreshes the page
     window.addEventListener(
@@ -126,12 +134,6 @@ class App extends React.Component {
       this.saveStateToLocalStorage.bind(this)
     );
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({
-  //     filtered: nextProps.items
-  //   });
-  // }
 
   componentWillUnmount() {
     window.removeEventListener(
