@@ -22,6 +22,7 @@ class App extends React.Component {
     super();
     this.state = {
       todoList: [],
+      filterText: '',
       task: '',
       completed: '',
       id: ''
@@ -33,26 +34,23 @@ class App extends React.Component {
   };
 
   handleSearch = e => {
-    let currentList = [];
-    let newList = [];
-    const original = this.state.todoList;
-    if (e.target.value !== "") {
-      currentList = this.state.todoList;
+    this.setState({filterText: e.target.value,
+    }, () => {
+      this.filterList();
+    });
+  };
 
-            // Use .filter() to determine which items should be displayed
-            // based on the search terms
-      newList = currentList.filter(todo => {
-        const lc = todo.task.toLowerCase();
-        const filter = e.target.value.toLowerCase();
-        return lc.includes(filter);
-      });
-      } else {
-         newList = original;
-      }
-        // Set the filtered state based on what our rules added to newList
-      this.setState({
-         todoList:newList 
-      });
+  filterList = e => {
+    const currentList = document.querySelectorAll('.todo');
+    const newList = Array.from(currentList);
+    // const original = this.state.todoList;
+      newList.forEach(todo => {
+        if(todo.textContent.indexOf(this.state.filterText) === -1){
+          todo.classList.add('hide');
+        } else {
+          todo.classList.remove('hide');
+        }
+      })
   };
 
   addNewTodo = e => {
@@ -117,23 +115,33 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.hydrateStateWithLocalStorage();
-
+    
+    // this.setState({
+    //   filtered: this.todoList
+    // });
     // add event listener to save state to localStorage
     // when user leaves/refreshes the page
     window.addEventListener(
       "beforeunload",
       this.saveStateToLocalStorage.bind(this)
     );
-}
-componentWillUnmount() {
-  window.removeEventListener(
-    "beforeunload",
-    this.saveStateToLocalStorage.bind(this)
-  );
+  }
 
-  // saves if component has a chance to unmount
-  this.saveStateToLocalStorage();
-}
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({
+  //     filtered: nextProps.items
+  //   });
+  // }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+
+    // saves if component has a chance to unmount
+    this.saveStateToLocalStorage();
+    }
 
   render() {
     return (
@@ -142,6 +150,7 @@ componentWillUnmount() {
         <TodoForm 
           addNewTodo={this.addNewTodo} 
           task={this.state.task}
+          filterText = {this.filterText}
           handleInput = {this.handleInput}
           handleSearch = {this.handleSearch}
           clearCompleted = {this.clearCompleted}

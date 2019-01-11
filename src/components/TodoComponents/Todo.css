@@ -90,3 +90,7 @@ button:hover {
     background-color: white;
     transform: scale(1.25);
 }
+
+.hide {
+    display: none;
+}
