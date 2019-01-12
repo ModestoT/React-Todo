@@ -1,0 +1,7 @@
+.App {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    font-family: 'Gloria Hallelujah', cursive, Arial;
+    height: auto;
+}

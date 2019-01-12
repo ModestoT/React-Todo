@@ -1,0 +1,96 @@
+.todo-List {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+    flex-wrap: wrap;
+}
+.todo {
+    cursor: pointer;
+    background: #ffc;
+    height: 10rem;
+    width: 10rem;
+    padding: 5%;
+    margin: 3%;
+    font-size: 2rem;
+    overflow-wrap: break-word;
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    -ms-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    transform: rotate(-6deg);
+    -ms-transform: rotate(-6deg);
+    -webkit-transform: rotate(-6deg);
+    transition: transform .15s linear;
+    -ms-transition: -ms-transform .15s linear;
+    -webkit-transition: -webkit-transform .15s linear;
+}
+
+.todo:nth-child(even){
+    transform: rotate(4deg);
+    -ms-transform: rotate(4deg);
+    -webkit-transform: rotate(4deg);
+    top: 5px;
+    background: #cfc;
+}
+
+.todo:nth-child(3n){
+    transform: rotate(-3deg);
+    -ms-transform: rotate(-3deg);
+    -webkit-transform: rotate(-3deg);
+    top: -5px; 
+    background:#ccf;
+}
+
+.todo:nth-child(5n){
+    transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    top: -10px;
+}
+
+.todo:hover, .todo:focus {
+    box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+    transform: scale(1.25);
+    z-index: 3;
+}
+
+.todo.completed {
+    text-decoration: line-through;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 15%;
+}
+
+input {
+    height: 20px;
+    transition: transform 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out;
+    width: 50%;
+}
+
+input:focus {
+    transform: scale(1.25);
+    width: 100%;
+}
+
+button {
+    width: 50%;
+    margin: 5%;
+    padding: 3% 0;
+    background-color: lightsteelblue;
+    border: 2px solid grey;
+    border-radius: 8px;
+}
+
+button:hover {
+    background-color: white;
+    transform: scale(1.25);
+}
+
+.hide {
+    display: none;
+}
